@@ -1,0 +1,26 @@
+table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+tr {
+    background-color: #ddd;
+}
+
+    tr:nth-child(2n) {
+        background-color: #eee;
+    }
+body {
+    background-image: repeating-linear-gradient(to left, #ebf7ff, #ffffd9);
+    text-align: center;
+}
+
+nav {
+    background-color: #618c48;
+}

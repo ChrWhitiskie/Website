@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} | MyWebsite</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+    <nav>
+        {% if 'logged_in' in session %}
+            You are logged in as {{ session.first_name }}! <a href="/logout">Log out</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+
+    <ul>
+    {% for message in get_flashed_messages() %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
