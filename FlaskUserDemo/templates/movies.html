@@ -9,6 +9,7 @@
             <th>ID</th>
             <th>Movie Name</th>
             <th>When it was made</th>
+            <th>Add movies that you have watched</th>
             <!-- <th>View</th> -->
             <!-- <th>DELETE</th> -->
             <!-- <th>Edit</th> -->
@@ -20,6 +21,7 @@
             <td>{{ row.movies_id }}</td>
             <td>{{ row.name }}</td>
             <td>{{ row['release_date(year)'] }}</td>
+            <td><a href="/WMHYW?id={{ row.movies_id }}">Movies</a></td>
 
             <!-- <td><a href="/view?id={{ row.id }}">View</a></td> -->
 

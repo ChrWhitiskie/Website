@@ -28,33 +28,48 @@ def movies():
             result = cursor.fetchall()
     return render_template('movies.html', result=result)
 
-#@app.route('/login', methods=['GET', 'POST'])
-#def login():
-#    if request.method == 'POST':
+@app.route('/WMHYW')
+def WMHYW():
+    if 'logged_in' in session:
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = """INSERT INTO `movies people took` (movies_id, users_id) VALUES (%s, %s)"""
+                values = (request.args['id'], session['users_id'])
+                cursor.execute(sql, values)
+                connection.commit()
+        return redirect('/')
+    else:
+        flash("You are not logged in!")
+        return redirect('/login')
 
-#        password = request.form['password']
-#        encrypted_passsword = hashlib.sha256(password.encode()).hexdigest()
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
 
-#        with create_connection() as connection:
-#            with connection.cursor() as cursor:
-#                sql = "SELECT * FROM users WHERE email=%s AND password=%s"
-#                values = (
-#                    request.form['email'],
-#                    encrypted_passsword
-#                )
-#                cursor.execute(sql, values)
-#                result = cursor.fetchone()
-#        if result:
-#            session['logged_in'] = True
-#            session['first_name'] = result['first_name']
-#            session['role'] = result['role']
-#            session['id'] = result['id']
-#            return redirect('/')
-#        else:
-#            flash("Invalid username or password!")
-#            return redirect('/login')
-#    else:
-#        return render_template('login.html')
+        password = request.form['password']
+        encrypted_passsword = hashlib.sha256(password.encode()).hexdigest()
+
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE email=%s AND password=%s"
+                values = (
+                    request.form['email'],
+                    encrypted_passsword
+                )
+                cursor.execute(sql, values)
+                result = cursor.fetchone()
+        if result:
+            session['logged_in'] = True
+            session['first_name'] = result['first_name']
+            #session['role'] = result['role']
+            session['users_id'] = result['users_id']
+            print(result['users_id'])
+            return redirect('/')
+        else:
+            flash("Invalid username or password!")
+            return redirect('/login')
+    else:
+        return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -80,12 +95,14 @@ def add_user():
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 sql = """INSERT INTO users 
-                    (first_name, last_name)
-                    VALUES (%s, %s)
+                    (first_name, last_name, email, password)
+                    VALUES (%s, %s, %s, %s)
                     """
                 values = (
                     request.form['first_name'], 
-                    request.form['last_name']
+                    request.form['last_name'],
+                    request.form['email'],
+                    encrypted_passsword
                     )
                 try:
                     cursor.execute(sql, values)
