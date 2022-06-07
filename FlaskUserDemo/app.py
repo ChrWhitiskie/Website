@@ -60,27 +60,18 @@ def add_user():
 
         password = request.form['password']
         encrypted_passsword = hashlib.sha256(password.encode()).hexdigest()
-        
-        if request.files['avatar'].filename:
-            avatar_image = request.files["avatar"]
-            ext = os.path.splitext(avatar_image.filename)[1]
-            avatar_filename = str(uuid.uuid4())[:8] + ext
-            avatar_image.save("static/images/" + avatar_filename)
-        else:
-            avatar_filename = None
 
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 sql = """INSERT INTO users 
-                    (first_name, last_name, email, password, avatar)
-                    VALUES (%s, %s, %s, %s, %s)
+                    (first_name, last_name, email, password)
+                    VALUES (%s, %s, %s, %s)
                     """
                 values = (
                     request.form['first_name'], 
                     request.form['last_name'], 
                     request.form['email'], 
-                    encrypted_passsword,
-                    avatar_filename
+                    encrypted_passsword
                     )
                 try:
                     cursor.execute(sql, values)
@@ -136,32 +127,18 @@ def edit():
         return redirect('/')
     
     if request.method == 'POST':
-        
-        if request.files['avatar'].filename:
-            avatar_image = request.files["avatar"]
-            ext = os.path.splitext(avatar_image.filename)[1]
-            avatar_filename = str(uuid.uuid4())[:8] + ext
-            avatar_image.save("static/images/" + avatar_filename)
-            if request.form['old_avatar'] != 'None' and os.path.exists("static/images/" + request.form['old_avatar']):
-                os.remove("static/images/" + request.form['old_avatar'])
-        elif request.form['old_avatar'] != 'None':
-            avatar_filename = request.form['old_avatar']
-        else:
-            avatar_filename = None
 
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 sql = """UPDATE users SET
                     first_name = %s,
                     last_name = %s,
-                    email = %s,
-                    avatar = %s
+                    email = %s
                 WHERE id = %s"""
                 values = (
                     request.form['first_name'],
                     request.form['last_name'],
                     request.form['email'],
-                    avatar_filename,
                     request.form['id']
                 )
                 cursor.execute(sql, values)
