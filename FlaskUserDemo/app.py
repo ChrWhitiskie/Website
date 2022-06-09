@@ -11,14 +11,36 @@ def restrict():
     restricted_pages = ['dashboard', 'edit', 'delete', 'view_user']
     admin_only = ['list_users']
 
-    if 'logged_in' not in session and request.endpoint in restricted_pages:
-        flash("You are not logged in!")
-        return redirect('/login')
+    #if 'logged_in' not in session and request.endpoint in restricted_pages:
+    #    flash("You are not logged in!")
+    #    return redirect('/login')
     
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/movies')
+def movies():
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM movies")
+            result = cursor.fetchall()
+    return render_template('movies.html', result=result)
+
+@app.route('/WMHYW')
+def WMHYW():
+    if 'logged_in' in session:
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = """INSERT INTO `movies people took` (movies_id, users_id) VALUES (%s, %s)"""
+                values = (request.args['id'], session['users_id'])
+                cursor.execute(sql, values)
+                connection.commit()
+        return redirect('/')
+    else:
+        flash("You are not logged in!")
+        return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -39,8 +61,9 @@ def login():
         if result:
             session['logged_in'] = True
             session['first_name'] = result['first_name']
-            session['role'] = result['role']
-            session['id'] = result['id']
+            #session['role'] = result['role']
+            session['users_id'] = result['users_id']
+            print(result['users_id'])
             return redirect('/')
         else:
             flash("Invalid username or password!")
@@ -69,15 +92,15 @@ def add_user():
                     """
                 values = (
                     request.form['first_name'], 
-                    request.form['last_name'], 
-                    request.form['email'], 
+                    request.form['last_name'],
+                    request.form['email'],
                     encrypted_passsword
                     )
                 try:
                     cursor.execute(sql, values)
                     connection.commit()
                 except pymysql.err.IntegrityError:
-                    flash('Email has already been taken')
+                    #flash('Email has already been taken')
                     return redirect('/register')
         return redirect('/')
     return render_template('users_add.html')
@@ -85,9 +108,9 @@ def add_user():
 # TODO: Add a '/dashboard' (list_users) route that uses SELECT
 @app.route('/dashboard')
 def dashboard():
-    if session['role'] != 'Admin':
-        flash("You are not an Admin!")
-        return redirect('/')
+#    if session['role'] != 'Admin':
+#        flash("You are not an Admin!")
+#        return redirect('/')
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM users")
@@ -106,10 +129,10 @@ def view_user():
 # TODO: Add a '/delete_user' route that uses DELETE
 @app.route('/delete')
 def delete():
-    if session['role'] != 'Admin':
-        flash("You are not an Admin!")
-        return redirect('/')
-    else:
+    #if session['role'] != 'Admin':
+    #    flash("You are not an Admin!")
+    #    return redirect('/')
+    #else:
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 sql = """DELETE FROM users WHERE id = %s"""

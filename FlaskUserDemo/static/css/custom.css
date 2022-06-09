@@ -1,6 +1,7 @@
 table {
     border-collapse: collapse;
     margin: auto;
+    margin-top: 1%;
     width: 40%;
     padding: 10px;
 }
@@ -23,4 +24,13 @@ body {
 
 nav {
     background-color: #618c48;
+    padding: 20px;
+    border-style: solid;
+    border-color: lightgreen;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+ul{
+
 }

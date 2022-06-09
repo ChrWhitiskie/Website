@@ -1,0 +1,38 @@
+{% extends '_layout.html' %}
+
+{% block title %}Movie Dashboard{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Movie Name</th>
+            <th>When it was made</th>
+            <th>Add movies that you have watched</th>
+            <!-- <th>View</th> -->
+            <!-- <th>DELETE</th> -->
+            <!-- <th>Edit</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in result %}
+        <tr>
+            <td>{{ row.movies_id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row['release_date(year)'] }}</td>
+            <td><a href="/WMHYW?id={{ row.movies_id }}">Movies</a></td>
+
+            <!-- <td><a href="/view?id={{ row.id }}">View</a></td> -->
+
+            <!-- <td><a href="/delete?id={{ row.id }}" onclick="return confirm('Are you sure you wish to delete {{ row.first_name }} {{ row.last_name }}?')">Delete</a></td> -->
+
+            <!-- <td><a href="/edit?id={{ row.id }}">Edit</a></td> -->
+
+        </tr>
+            {% endfor %}
+    </tbody>
+</table>
+    <br>
+    <!-- <a href="{{ url_for('add_user') }}">Add a new person</a> -->
+            {% endblock %}
