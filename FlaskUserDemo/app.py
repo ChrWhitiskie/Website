@@ -20,21 +20,21 @@ def restrict():
 def home():
     return render_template('index.html')
 
-@app.route('/movies')
-def movies():
+@app.route('/subjects')
+def Subjects():
     with create_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM movies")
+            cursor.execute("SELECT * FROM subjects")
             result = cursor.fetchall()
-    return render_template('movies.html', result=result)
+    return render_template('subjects.html', result=result)
 
-@app.route('/WMHYW')
-def WMHYW():
+@app.route('/WSDYW')
+def WSDYW():
     if 'logged_in' in session:
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = """INSERT INTO `movies people took` (movies_id, users_id) VALUES (%s, %s)"""
-                values = (request.args['id'], session['users_id'])
+                sql = """INSERT INTO picked_subjects (subject_id, user_id) VALUES (%s, %s)"""
+                values = (request.args['id'], session['user_id'])
                 cursor.execute(sql, values)
                 connection.commit()
         return redirect('/')
