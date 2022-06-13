@@ -3,34 +3,43 @@
 {% block title %}Movie Dashboard{% endblock %}
 
 {% block content %}
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Subject Name</th>
-            <th>Add which subject that you want</th>
-            <!-- <th>View</th> -->
-            <!-- <th>DELETE</th> -->
-            <!-- <th>Edit</th> -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in result %}
-        <tr>
-            <td>{{ row.subject_id }}</td>
-            <td>{{ row.subject_name }}</td>
-            <td><a href="/WSDYW?id={{ row.subject_id }}">Subject</a></td>
+<div id="title">
+    <h1>
+        Subjects
+    </h1>
+    <h5>
+        This page shows you which subjects you can pick from.
+    </h5>
+</div>
+<br>
+<div id="main_body">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Subject Name</th>
+                <th>Add which subject that you want</th>
+                <!-- <th>View</th> -->
+                <!-- <th>DELETE</th> -->
+                <!-- <th>Edit</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+            <tr>
+                <td>{{ row.subject_id }}</td>
+                <td>{{ row.subject_name }}</td>
+                <td><a href="/WSDYW?id={{ row.subject_id }}">Subject</a></td>
 
-            <!-- <td><a href="/view?id={{ row.id }}">View</a></td> -->
+                <!-- <td><a href="/view?id={{ row.id }}">View</a></td> -->
+                <!-- <td><a href="/delete?id={{ row.id }}" onclick="return confirm('Are you sure you wish to delete {{ row.first_name }} {{ row.last_name }}?')">Delete</a></td> -->
+                <!-- <td><a href="/edit?id={{ row.id }}">Edit</a></td> -->
 
-            <!-- <td><a href="/delete?id={{ row.id }}" onclick="return confirm('Are you sure you wish to delete {{ row.first_name }} {{ row.last_name }}?')">Delete</a></td> -->
-
-            <!-- <td><a href="/edit?id={{ row.id }}">Edit</a></td> -->
-
-        </tr>
+            </tr>
             {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
     <br>
     <!-- <a href="{{ url_for('add_user') }}">Add a new person</a> -->
             {% endblock %}

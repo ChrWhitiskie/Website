@@ -4,16 +4,18 @@
 
 {% block content %}
 <br>
-<div id="Title">
+<div id="title">
     <h1>Subject Selecter</h1>
     <h5>This website is you you as the student to pick which subjects you want to take next year in college.</h5>
 </div>
 <br><br>
-<a href="{{ url_for('add_user') }}">Add a new person</a>
-<br>
-{% if session['role'] == 'Admin' %}
-<a href="{{ url_for('dashboard') }}">Dashboard</a>
-{% elif 'logged_in' in session %}
-<a href="/view?id={{ session['id'] }}">View your account</a>
-{% endif %}
+    <div id="main_body">
+        <a href="{{ url_for('add_user') }}">Add a new person</a>
+        <br>
+        {% if session['role'] == 'Admin' %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        {% elif 'logged_in' in session %}
+        <a href="/view?id={{ session['id'] }}">View your account</a>
+        {% endif %}
+    </div>
 {% endblock %}

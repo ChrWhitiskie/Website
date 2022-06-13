@@ -31,9 +31,16 @@ nav {
     justify-content: space-evenly;
 }
 
-div {
+#title {
     background-color: #618c48;
     padding: 20px;
     border-style: solid;
     border-color: lightgreen;
+}
+
+#main_body {
+    background-color: cornflowerblue;
+    padding: 20px;
+    border-style: solid;
+    border-color: lightblue;
 }
