@@ -3,6 +3,12 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<br>
+<div id="Title">
+    <h1>Subject Selecter</h1>
+    <h5>This website is you you as the student to pick which subjects you want to take next year in college.</h5>
+</div>
+<br><br>
 <a href="{{ url_for('add_user') }}">Add a new person</a>
 <br>
 {% if session['role'] == 'Admin' %}

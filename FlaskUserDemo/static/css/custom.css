@@ -23,14 +23,17 @@ body {
 }
 
 nav {
-    background-color: #618c48;
+    background-color: darkgrey;
     padding: 20px;
     border-style: solid;
-    border-color: lightgreen;
+    border-color: grey;
     display: flex;
     justify-content: space-evenly;
 }
 
-ul{
-
+div {
+    background-color: #618c48;
+    padding: 20px;
+    border-style: solid;
+    border-color: lightgreen;
 }
