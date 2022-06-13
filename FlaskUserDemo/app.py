@@ -60,10 +60,10 @@ def login():
                 result = cursor.fetchone()
         if result:
             session['logged_in'] = True
-            session['first_name'] = result['first_name']
+            session['First_Name'] = result['First_Name']
             #session['role'] = result['role']
-            session['users_id'] = result['users_id']
-            print(result['users_id'])
+            session['user_id'] = result['user_id']
+            print(result['user_id'])
             return redirect('/')
         else:
             flash("Invalid username or password!")
