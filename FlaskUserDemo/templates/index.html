@@ -6,10 +6,108 @@
 <br>
 <div id="title">
     <h1>Subject Selecter</h1>
-    <h5>This website is you you as the student to pick which subjects you want to take next year in college.</h5>
+    <h5>This website is for you as the student to pick which subjects you want to take next year in college.</h5>
 </div>
 <br><br>
     <div id="main_body">
+        <p>
+            This website allows you as the student of pakuranga college to pick which subjects you would like to take for the next year of your college life. Here is some information on the different subjects that are a part of Pakuranga college's learning system:
+            <br><br>
+                <div id="subjects">
+                    <h3>English:</h3>
+                    <br>
+                    You will learn to:
+                    <li>
+                        Critically respond to ideas in texts, using relevant evidence to justify your ideas and make connections between and beyond texts.
+                    </li>
+                    <li>
+                        Appreciate, understand and explore a range of text types, including contemporary and older literature, films and other texts.
+                    </li>
+                    <li>
+                        Communicate ideas confidently and clearly in oral and written forms.
+                    </li>
+                    Teacher in Charge: Ms V Scott
+                    <br>
+                    Potential Credits: 25
+                </div>
+            <br><br>
+                <div id="subjects">
+                    <h3>Maths:</h3>
+                    <br>
+                    You will learn to:
+                    <li>
+                        Develop your algebraic skills that will now include generalisations across multiple contexts
+                    </li>
+                    <li>
+                        Investigate the relationships between tables, equations and graphs across linear, quadratic and exponential functions
+                    </li>
+                    <li>
+                        Explore 3D situations that involves the use of Pythagoras, trigonometry and other geometrical reasoning skills
+                    </li>
+                    <li>
+                        Investigate a variety of datasets that require multivariable analysis following the PPDAC cycle
+                    </li>
+                    <li>
+                        Apply statistical thinking across a variety of different datasets and graphs across a range of contexts
+                    </li>
+                    <li>
+                        Engage with elements of chance and all things probability
+                    </li>
+                        Teacher in Charge: Mr S Jupp
+                    <br>
+                        Potential Credits: 22
+                </div>
+            <br><br>
+                <div id="subjects">
+                    <h3>Computer technology:</h3>
+                    <br>
+                    You will learn to:
+                    <li>
+                        Create a high-quality website using HTML, CSS and Bootstrap
+                    </li>
+                    <li>
+                        Make a 2D game using Python, using computational thinking skills
+                    </li>
+                    <li>
+                        Create a simple solution to a database problem
+                    </li>
+                    <li>
+                        Understand how computers store and process images and other types of data
+                    </li>
+                    <li>
+                        Understand how to make outcomes that meet the needs of all potential users
+                    </li>
+                        Teacher in Charge: Mr C Smith
+                    <br>
+                        Potential Credits: 20
+                </div>
+            <br><br>
+                <div id="subjects">
+                    <h3>Food Technology:</h3>
+                    <br>
+                    You will learn to:
+                    <li>
+                        develop practical skills in food technology, to support the development of innovative new food products
+                    </li>
+                    <li>
+                        work collaboratively and contribute in a group to achieve successful outcomes
+                    </li>
+                    <li>
+                        set goals, develop plans, make creative decisions and apply knowledge to solve problems
+                    </li>
+                    <li>
+                        develop the skills required to research and write a report on specific ingredients and how they function within food products
+                    </li>
+                        Teacher in Charge: Ms S Prankerd
+                    <br>
+                        Potential Credits: 22
+                </div>
+            <br><br>
+                <div id="subjects">
+                    Chemistry:
+                </div>
+        </p>
+        <br>
         <a href="{{ url_for('add_user') }}">Add a new person</a>
         <br>
         {% if session['role'] == 'Admin' %}
