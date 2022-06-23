@@ -6,14 +6,29 @@
 
 <h1>
     Hello 
-    {{ result.first_name }}
-    {{ result.last_name }}
+    {{ result[0].First_Name }}
+    {{ result[0].Last_Name }}
 </h1>
 <br>
-{{ result.email }}
+{{ result[0].email }}
 <br>
-<img src="{{ url_for('static', filename='images/' + (result.avatar or'default.png')) }}">
+<p>These are the subjects that you have picked so far:</p>
+<br>
 
-
+{% for row in result %}
+    <table>
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Subject Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <td>{{ row.user_id }}</td>
+            <td>{{ row.subject_id }}</td>
+        </tbody>
+    </table>
+{% endfor %}
 
 {% endblock %}

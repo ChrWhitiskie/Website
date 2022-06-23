@@ -17,6 +17,7 @@
         <a href="/subjects">Subject Dashboard</a>
         <a href="{{ url_for('add_user') }}">Add a new person</a>
         <a href="/">Home</a>
+        <a href="/view?id={{ session.user_id }}">View your profile</a>
     </nav>
     {% block content %}{% endblock %}
 
