@@ -15,20 +15,23 @@
 <p>These are the subjects that you have picked so far:</p>
 <br>
 
-{% for row in result %}
-    <table>
-        <thead>
+
+<table>
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>Subject Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in result %}
             <tr>
-                <th>User Id</th>
-                <th>Subject Id</th>
+                <td>{{ row.user_id }}</td>
+                <td>{{ row.subject_id }}</td>
             </tr>
-        </thead>
-        <tbody>
-            
-            <td>{{ row.user_id }}</td>
-            <td>{{ row.subject_id }}</td>
-        </tbody>
-    </table>
-{% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
 
 {% endblock %}
