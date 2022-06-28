@@ -61,7 +61,7 @@ def login():
         if result:
             session['logged_in'] = True
             session['First_Name'] = result['First_Name']
-            #session['role'] = result['role']
+            session['role'] = result['role']
             session['user_id'] = result['user_id']
             print(result['user_id'])
             return redirect('/')
@@ -130,17 +130,22 @@ def view_user():
 # TODO: Add a '/delete_user' route that uses DELETE
 @app.route('/delete')
 def delete():
-    #if session['role'] != 'Admin':
-    #    flash("You are not an Admin!")
-    #    return redirect('/')
-    #else:
-        with create_connection() as connection:
-            with connection.cursor() as cursor:
-                sql = """DELETE FROM users WHERE id = %s"""
-                values = (request.args['id'])
-                cursor.execute(sql, values)
-                connection.commit()
+    if session['role'] != 'Admin':
+        flash("You are not an Admin!")
         return redirect('/')
+    else:
+        try:
+            with create_connection() as connection:
+                with connection.cursor() as cursor:
+                    sql = """DELETE FROM subjects WHERE subject_id = %s"""
+                    values = (request.args['id'])
+                    cursor.execute(sql, values)
+                    connection.commit()
+            return redirect('/')
+        except pymysql.err.IntegrityError:
+            flash("Sorry but someone has selected this subject.")
+            return redirect('/')
+
 
 
 # TODO: Add an '/edit_user' route that uses UPDATE

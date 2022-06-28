@@ -51,3 +51,30 @@ nav {
     border-style: solid;
     border-color: lightblue;
 }
+
+.outer-error {
+    list-style-type: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+.inner-error {
+    color: #911;
+    background-color: lightpink;
+    border-radius: 0.25rem;
+    max-width: 16rem;
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 0.8rem;
+    animation: fade-out 3s 10s both;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

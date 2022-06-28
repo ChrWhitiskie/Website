@@ -21,10 +21,10 @@
     </nav>
     {% block content %}{% endblock %}
 
-    <li>
+    <ul class="outer-error">
         {% for message in get_flashed_messages() %}
-        <li>{{ message }}</li>
+        <li class="inner-error">{{ message }}</li>
         {% endfor %}
-    </li>
+    </ul>
 </body>
 </html>
