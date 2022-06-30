@@ -11,9 +11,9 @@ def restrict():
     restricted_pages = ['dashboard', 'edit', 'delete', 'view_user']
     admin_only = ['list_users']
 
-    #if 'logged_in' not in session and request.endpoint in restricted_pages:
-    #    flash("You are not logged in!")
-    #    return redirect('/login')
+    if 'logged_in' not in session and request.endpoint in restricted_pages:
+        flash("You are not logged in!")
+        return redirect('/login')
     
 
 @app.route('/')
@@ -42,6 +42,7 @@ def WSDYW():
         flash("You are not logged in!")
         return redirect('/login')
 
+# This allows users to login.
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -76,7 +77,7 @@ def logout():
     session.clear()
     return redirect('/')
 
-# TODO: Add a '/register' (add_user) route that uses INSERT
+# This allows people to create new users.
 @app.route('/register', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
@@ -100,24 +101,24 @@ def add_user():
                     cursor.execute(sql, values)
                     connection.commit()
                 except pymysql.err.IntegrityError:
-                    #flash('Email has already been taken')
+                    flash('Email has already been taken')
                     return redirect('/register')
         return redirect('/')
     return render_template('users_add.html')
 
-# TODO: Add a '/dashboard' (list_users) route that uses SELECT
+# This is a dashboard that allows the admins to see all the users
 @app.route('/dashboard')
 def dashboard():
-#    if session['role'] != 'Admin':
-#        flash("You are not an Admin!")
-#        return redirect('/')
+    if session['role'] != 'Admin':
+        flash("You are not an Admin!")
+        return redirect('/')
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM users")
             result = cursor.fetchall()
     return render_template('users_dashboard.html', result=result)
 
-# TODO: Add a '/profile' (view_user) route that uses SELECT
+# This allows the users to see which subjects they can see.
 @app.route('/view')
 def view_user():
     with create_connection() as connection:
@@ -127,7 +128,7 @@ def view_user():
             result = cursor.fetchall()
     return render_template('users_view.html', result=result)
 
-# TODO: Add a '/delete_user' route that uses DELETE
+# This allows the admins to delete subjects if no users have picked the subject.
 @app.route('/delete')
 def delete():
     if session['role'] != 'Admin':
@@ -148,7 +149,7 @@ def delete():
 
 
 
-# TODO: Add an '/edit_user' route that uses UPDATE
+# This allows users to edit their information.
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
     if session['role'] != 'admin' and str(session['id']) != request.args['id']:
@@ -200,7 +201,7 @@ def check_email():
 if __name__ == '__main__':
     import os
 
-    # This is required to allow flashing messages. We will cover this later.
+    # This is required to allow flashing messages.
     app.secret_key = os.urandom(32)
 
     HOST = os.environ.get('SERVER_HOST', 'localhost')
