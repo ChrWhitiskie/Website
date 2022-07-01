@@ -40,6 +40,13 @@
         </tbody>
     </table>
 </div>
-    <br>
-    <a href="{{ url_for('add_user') }}">Add a new person</a>
-            {% endblock %}
+<br>
+    {% if session['role'] == 'Admin' %}
+        <form method="post" enctype="multipart/form-data">
+            <label for="subject_name">Subject Name:</label>
+            <input id="subject_name" name="subject_name">
+        </form>
+    {% endif %}
+<br>
+<a href="{{ url_for('add_user') }}">Add a new person</a>
+{% endblock %}

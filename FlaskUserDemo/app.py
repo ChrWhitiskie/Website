@@ -20,13 +20,27 @@ def restrict():
 def home():
     return render_template('index.html')
 
-@app.route('/subjects')
+@app.route('/subjects', methods=['GET', 'POST'])
 def Subjects():
-    with create_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM subjects")
-            result = cursor.fetchall()
-    return render_template('subjects.html', result=result)
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM subjects")
+                result = cursor.fetchall()
+                if request.method == 'POST':
+
+                    with create_connection() as connection:
+                        with connection.cursor() as cursor:
+                            sql = """INSERT INTO subjects 
+                                (subject_name)
+                                VALUES (%s)
+                                """
+                            values = (
+                                request.form['subject_name']
+                                )
+                            cursor.execute(sql, values)
+                            connection.commit()     
+                    return redirect('/')
+        return render_template('subjects.html', result=result)
 
 @app.route('/WSDYW')
 def WSDYW():
