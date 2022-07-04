@@ -47,11 +47,16 @@ def WSDYW():
     if 'logged_in' in session:
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = """INSERT INTO picked_subjects (subject_id, user_id) VALUES (%s, %s)"""
-                values = (request.args['id'], session['user_id'])
-                cursor.execute(sql, values)
-                connection.commit()
-        return redirect('/')
+                cursor.execute("SELECT * FROM picked_subjects WHERE user_id=%s", request.args['id'])
+                if len(result) <5:
+                    sql = """INSERT INTO picked_subjects (subject_id, user_id) VALUES (%s, %s)"""
+                    values = (request.args['id'], session['user_id'])
+                    cursor.execute(sql, values)
+                    connection.commit()
+                    return redirect('/')
+                else:
+                    flash("You have 5 subjects already.")
+                    return redirect('/view')
     else:
         flash("You are not logged in!")
         return redirect('/login')
@@ -128,7 +133,7 @@ def dashboard():
         return redirect('/')
     with create_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users")
+            cursor.execute("SELECT * FROM users JOIN picked_subjects ON users.user_id=picked_subjects.user_id JOIN subjects ON subjects.subject_id=picked_subjects.subject_id")
             result = cursor.fetchall()
     return render_template('users_dashboard.html', result=result)
 
@@ -161,6 +166,15 @@ def delete():
             flash("Sorry but someone has selected this subject.")
             return redirect('/')
 
+@app.route('/selected_delete')
+def selected_delete():
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            sql = """DELETE FROM picked_subjects WHERE subject_id = %s"""
+            values = (request.args['id'])
+            cursor.execute(sql, values)
+            connection.commit()
+        return redirect('/')
 
 
 # This allows users to edit their information.
