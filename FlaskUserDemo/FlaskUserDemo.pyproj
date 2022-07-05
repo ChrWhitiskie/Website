@@ -37,6 +37,7 @@
     <Content Include="static\images\default.png" />
     <Content Include="templates\login.html" />
     <Content Include="templates\subjects.html" />
+    <Content Include="templates\subject_edit.html" />
     <Content Include="templates\users_edit.html" />
     <Content Include="templates\index.html" />
     <Content Include="templates\users_add.html" />

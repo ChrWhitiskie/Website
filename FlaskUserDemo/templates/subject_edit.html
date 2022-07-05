@@ -1,0 +1,14 @@
+{% extends '_layout.html' %}
+
+{% block title %}Edit Subject{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" id="id" name="id" value="{{ result.id }}">
+    <br>
+    <label for="subject_name">Subject Name:</label>
+    <input id="subject_name" name="subject_name" value="{{ result.subject_name }}">
+    <br>
+    <input type="submit" value="Update Subject">
+</form>
+{% endblock %}

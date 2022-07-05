@@ -209,6 +209,32 @@ def edit():
                 result = cursor.fetchone()
         return render_template('users_edit.html', result=result)
 
+@app.route('/subject_edit', methods=['GET', 'POST'])
+def subject_edit():
+    if session['role'] != 'admin' and str(session['id']) != request.args['id']:
+        flash("You are not an admin!")
+        return redirect('/')
+    
+    if request.method == 'POST':
+
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = """UPDATE users SET
+                    subject_name = %s,
+                WHERE id = %s"""
+                values = (
+                    request.form['subject_name'],
+                    request.form['id']
+                )
+                cursor.execute(sql, values)
+                connection.commit()
+        return redirect('/view?id=' + request.form['id'])
+    else:
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM subjects WHERE id = %s", request.args['id'])
+                result = cursor.fetchone()
+        return render_template('subject_edit.html', result=result)
 
 @app.route('/checkemail')
 def check_email():
