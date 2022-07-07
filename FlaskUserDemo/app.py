@@ -48,6 +48,8 @@ def WSDYW():
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("SELECT * FROM picked_subjects WHERE user_id=%s", request.args['id'])
+                result = cursor.fetchall()
+                print(len(result), result)
                 if len(result) <5:
                     sql = """INSERT INTO picked_subjects (subject_id, user_id) VALUES (%s, %s)"""
                     values = (request.args['id'], session['user_id'])
@@ -56,7 +58,7 @@ def WSDYW():
                     return redirect('/')
                 else:
                     flash("You have 5 subjects already.")
-                    return redirect('/view')
+                    return redirect('/')
     else:
         flash("You are not logged in!")
         return redirect('/login')
