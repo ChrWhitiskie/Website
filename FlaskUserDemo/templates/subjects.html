@@ -21,7 +21,7 @@
                 <th>Add which subject that you want</th>
                 <!-- <th>View</th> -->
                 <th>DELETE</th>
-                <!-- <th>Edit</th> -->
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
 
                 <!-- <td><a href="/view?id={{ row.id }}">View</a></td> -->
                 <td><a href="/delete?id={{ row.subject_id }}" onclick="return confirm('Are you sure you wish to delete {{ row.subject_id }}?')">Delete</a></td>
-                <!-- <td><a href="/edit?id={{ row.id }}">Edit</a></td> -->
+                <td><a href="/subject_edit?id={{ row.subject_id }}">Subject Edit</a></td>
 
             </tr>
             {% endfor %}

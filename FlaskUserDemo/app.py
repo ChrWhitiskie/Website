@@ -211,7 +211,7 @@ def edit():
 
 @app.route('/subject_edit', methods=['GET', 'POST'])
 def subject_edit():
-    if session['role'] != 'admin' and str(session['id']) != request.args['id']:
+    if session['role'] != 'Admin' and str(session['user_id']) != request.args['user_id']:
         flash("You are not an admin!")
         return redirect('/')
     
@@ -219,20 +219,20 @@ def subject_edit():
 
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = """UPDATE users SET
-                    subject_name = %s,
-                WHERE id = %s"""
+                sql = """UPDATE subjects SET
+                    subject_name = %s
+                WHERE subject_id = %s"""
                 values = (
                     request.form['subject_name'],
                     request.form['id']
                 )
                 cursor.execute(sql, values)
                 connection.commit()
-        return redirect('/view?id=' + request.form['id'])
+        return redirect('/subjects')
     else:
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM subjects WHERE id = %s", request.args['id'])
+                cursor.execute("SELECT * FROM subjects WHERE subject_id = %s", request.args['id'])
                 result = cursor.fetchone()
         return render_template('subject_edit.html', result=result)
 
