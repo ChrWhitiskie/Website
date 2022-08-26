@@ -32,7 +32,7 @@ nav {
 }
 
 #title {
-    background-color: #618c48;
+    background-image: repeating-linear-gradient(to right, #618c48, #488c7b);
     padding: 20px;
     border-style: solid;
     border-color: lightgreen;
@@ -46,10 +46,13 @@ nav {
 }
 
 #subjects {
+    background-image: repeating-linear-gradient(to top, lightblue, #adc2e6, #adc2e6, #adc2e6, lightblue);
     background-color: #adc2e6;
     padding: 20px;
     border-style: solid;
     border-color: lightblue;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
 }
 
 .outer-error {
