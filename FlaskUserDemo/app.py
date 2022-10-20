@@ -145,7 +145,7 @@ def view_user():
     with create_connection() as connection:
         with connection.cursor() as cursor:
             # cursor.execute("SELECT * FROM users WHERE user_id=%s", request.args['id'])
-            cursor.execute("SELECT * FROM users JOIN picked_subjects ON users.user_id=picked_subjects.user_id JOIN subjects ON subjects.subject_id=picked_subjects.subject_id WHERE users.user_id=%s", request.args['id'])
+            cursor.execute("SELECT * FROM users left JOIN picked_subjects ON users.user_id=picked_subjects.user_id left JOIN subjects ON subjects.subject_id=picked_subjects.subject_id WHERE users.user_id=%s", request.args['id'])
             result = cursor.fetchall()
     return render_template('users_view.html', result=result)
 
