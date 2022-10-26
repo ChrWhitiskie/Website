@@ -31,6 +31,26 @@ nav {
     justify-content: space-evenly;
 }
 
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.button {
+    padding: 5px;
+    background-color: white;
+    border-style: solid;
+    border-color: grey;
+}
+
+.button_2 {
+    padding: 5px;
+    background-color: white;
+    border-style: solid;
+    border-color: lightblue;
+}
+
 #title {
     background-image: repeating-linear-gradient(to right, #618c48, #488c7b);
     padding: 20px;

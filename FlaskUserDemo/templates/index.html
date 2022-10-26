@@ -123,12 +123,12 @@
                 </div>
         </p>
         <br>
-        <a href="{{ url_for('add_user') }}">Add a new person</a>
+        <a href="{{ url_for('add_user') }}" class="button_2">Add a new person</a>
         <br>
         {% if session['role'] == 'Admin' %}
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="button_2">Dashboard</a>
         {% elif 'logged_in' in session %}
-        <a href="/view?id={{ session['id'] }}">View your account</a>
+        <a href="/view?id={{ session['id'] }}" class="button_2">View your account</a>
         {% endif %}
     </div>
 {% endblock %}
