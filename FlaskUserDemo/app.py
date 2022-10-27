@@ -47,7 +47,7 @@ def WSDYW():
     if 'logged_in' in session:
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM picked_subjects WHERE user_id=%s", request.args['id'])
+                cursor.execute("SELECT * FROM picked_subjects WHERE user_id=%s", session['user_id'])
                 result = cursor.fetchall()
                 print(len(result), result)
                 if len(result) <5:
@@ -213,7 +213,7 @@ def edit():
 
 @app.route('/subject_edit', methods=['GET', 'POST'])
 def subject_edit():
-    if session['role'] != 'Admin' and str(session['user_id']) != request.args['user_id']:
+    if session['role'] != 'Admin' and str(session['user_id']) != session['user_id']:
         flash("You are not an admin!")
         return redirect('/')
     

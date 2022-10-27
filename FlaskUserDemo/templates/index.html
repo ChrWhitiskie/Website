@@ -128,6 +128,7 @@
         {% if session['role'] == 'Admin' %}
         <a href="{{ url_for('dashboard') }}" class="button_2">Dashboard</a>
         {% elif 'logged_in' in session %}
+        <br>
         <a href="/view?id={{ session['id'] }}" class="button_2">View your account</a>
         {% endif %}
     </div>
